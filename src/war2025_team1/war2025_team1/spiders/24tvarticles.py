@@ -33,6 +33,14 @@ class TvSpider(scrapy.Spider):
             './/div[@class="top-news-info"]').extract_first()
         date = scrapy.Selector(text=second_step).xpath('.//span[@class="date"]/text()').extract_first()
 
+        # if not date.__contains__("2023") or not date.__contains__("2022") or not date.__contains__("2021"):
+        #     date = date + "2024"
+        # else:
+        #     date = date
+        # item['article_datetime'] = date
+
+        if not any(year in date for year in ["2021", "2022", "2023"]):
+            date += " 2024"
         item['article_datetime'] = date
 
         item['article_title'] = scrapy.Selector(text=first_step).xpath(

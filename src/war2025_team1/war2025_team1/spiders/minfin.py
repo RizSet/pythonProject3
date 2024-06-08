@@ -8,12 +8,14 @@ class MinfinSpider(scrapy.Spider):
 
     name = "minfin"
     allowed_domains = ["minfin.com.ua"]
-    start_urls = ["1","2","3","4","5","6","7","8","9"]
+    # start_urls = ["1","2","3","4","5","6","7","8","9","10", "11", "12", "13", "14"]
 
     def start_requests(self):
-        for link_url in self.start_urls:
-            print(link_url)
-            request = Request("https://minfin.com.ua/ua/realty/news/" + link_url + "/", cookies={'store_language': 'en'}, callback=self.parse)
+        # for link_url in self.start_urls:
+        for number_url in range(1, 27, 1):
+            url = f"https://minfin.com.ua/ua/realty/news/{number_url}/"
+            print(number_url)
+            request = Request(url, cookies={'store_language': 'en'}, callback=self.parse)
             yield request
 
     def parse(self, response):
